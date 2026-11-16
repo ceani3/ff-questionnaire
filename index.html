@@ -200,12 +200,14 @@ document.querySelectorAll('.choices[data-radio]').forEach(g=>{
   const name=g.dataset.radio;
   g.querySelectorAll('.choice').forEach(c=>{
     const inp=c.querySelector('input');
-    const sync=()=>c.classList.toggle('sel',inp.checked);
-    inp.addEventListener('change',()=>{
+    const select=()=>{
       g.querySelectorAll('.choice').forEach(x=>x.classList.remove('sel'));
-      sync();
-    });
-    if(inp.value===radioDefaults[name]){inp.checked=true;sync();}
+      c.classList.add('sel');
+      inp.checked=true;
+    };
+    c.addEventListener('click',select);
+    inp.addEventListener('change',select);
+    if(inp.value===radioDefaults[name]){select();}
   });
 });
 
